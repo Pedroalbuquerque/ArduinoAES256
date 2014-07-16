@@ -18,25 +18,23 @@
 *   OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 */
 
+#ifndef __ARDUINOAES256_H__
+#define __ARDUINOAES256_H__
 #include <Arduino.h>
 
-#ifdef __cplusplus
-extern "C" { 
-#endif
+class AES256
+{
+public:
+    AES256() {}
+    ~AES256() { done(); }
+    void init(uint8_t * /* key */);
+    void done();
+    void encrypt_ecb(uint8_t * /* plaintext */);
+    void decrypt_ecb(uint8_t * /* cipertext */);
+private:
+  uint8_t ctx_key[32];
+  uint8_t ctx_enckey[32];
+  uint8_t ctx_deckey[32];
+};
 
-    typedef struct {
-        uint8_t key[32]; 
-        uint8_t enckey[32]; 
-        uint8_t deckey[32];
-    } aes256_context; 
-
-
-    void aes256_init(aes256_context *, uint8_t * /* key */);
-    void aes256_done(aes256_context *);
-    void aes256_encrypt_ecb(aes256_context *, uint8_t * /* plaintext */);
-    void aes256_decrypt_ecb(aes256_context *, uint8_t * /* cipertext */);
-
-#ifdef __cplusplus
-}
-#endif
-
+#endif //__ARDUINOAES256_H__
